@@ -31,7 +31,7 @@
 	\]
 	Therefore, $\text{Tr} \left(U^T M U\right) =\text{Tr}\left(D^2\right) = \sum_{k=1}^{n}\lambda_k^{(+)}$
 	
-	In order to maximize this, we can set $d$ such that $\lambda_{d+1}^{(+)}$ is the first occurrence of a negative eigenvalue in the $\lambda_k^{(+)}$ sequence.
+	In order to maximize this, we can set $d$ such that $\lambda_{d+1}^{(+)}$ is the first occurrence of a complex eigenvalue in the $\lambda_k^{(+)}$ sequence who's magnitude is negative. If no such eigenvector exists, $d=n$.
 	\\
 	\section{Estimators}
 	\subsection{Problem 2}
@@ -125,13 +125,21 @@
 	\]
 	\subsection{Problem 5}
 	Consider the matrix $M = \frac{1}{\sqrt{n}}W + \beta vv^T$ for $||v||_2=1$ and $W$ is a standard Gaussian Wigner Matrix. If $v=e_1$, this is a rank 1 perturbation of a Wigner matrix. Derive the limit of the largest eigenvalue.
-	\\
+	\\\\
+	Rather than performing a rigorous proof, the limit can be derived empirically by generating 500 samples of $M$, with $n$ set to a reasonably large number (1000), and $\beta$ selected randomly each time from a uniform distribution $[0,5]$. 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.55]{problem_5.png}
+	\end{figure}
+	
+	We can see that when $\beta \leq 1$, $\lim\limits_{n \rightarrow \infty} \lambda_{max} = 2$, and when $\beta > 1$, $\lim\limits_{n \rightarrow \infty}\lambda_{max} = \beta + \frac{1}{\beta}$
+	\\\\
 	\section{Diffusion Maps}
 	\subsection{Problem 6}
 	Derive the 2-D diffusion map embedding for the $n$-node ring graph. If the eigenvalues are complex, try creating real ones using multiplicity of eigenvalues. Is it a reasonable embedding of this graph in two dimensions?
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=0.8\linewidth]{diffmap.png}
+		\includegraphics[width=0.6\linewidth]{diffmap.png}
 	\end{figure}
 \end{document}
