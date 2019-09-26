@@ -1,0 +1,24 @@
+\documentclass{amsart}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\title{Problem Set 2}
+\author{Mark Ditsworth}
+
+\begin{document}
+	\maketitle
+	\section{Problem 1}
+	Given graph $G=(V,E,W)$ consider a random walk on V with transition probabilities $M_{ij} = P{X(t+1)=j | X(t)=i} = \frac{w_{ij}}{\text{deg}(i)}$.
+	\\\\
+	Partition the vertex set as $V = V_+ \cup V_- \cup V_*$. Suppose that every node in $V_*$ is connected to at least one node in either $V_+$ or $V_-$. Given a node $i \subset V$ let $g(i)$ be the probability that a random walker starting at $i$ reaches a node in $V_+$ before reaching one in $V_-$. If $i \in V_+$, then $g(i)=1$ and if $i \in V_-$, then $g(i)=0$. Find $g(i)$ for $i \in V_*$.
+	\\\\
+	
+	There are two scenarios in which the random walker will reach a node in $V_+$ before one in $V_-$: Moving from $V_*$ to $V_+$ immediately, or moving from $V_*$ to $V_*$ repeatedly until moving to $V_+$. We essentially view leaving $V_*$ as an absorbing barrier, and want the probability that we end in $V_+$, which is the sum of all probabilities that will end in that scenario:
+	\[
+	\sum_{j \in V_+}M_{ij} + \sum_{j \in V_*}\sum_{k \in V_+}M_{ij}M_{jk} + \sum_{j \in V_*}\sum_{k \in V_*}\sum_{l \in V_+}M_{ij}M_{jk}M_{kl} + \dots
+	\]	
+	
+\end{document}
