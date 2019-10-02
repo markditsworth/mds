@@ -10,12 +10,12 @@
 
 \begin{document}
 	\maketitle
-	\section{Problem 1}
+	\section{Problem 2.1}
 	Given graph $G=(V,E,W)$ consider a random walk on V with transition probabilities $M_{ij} = P{X(t+1)=j | X(t)=i} = \frac{w_{ij}}{\text{deg}(i)}$.
 	\\\\
 	Partition the vertex set as $V = V_+ \cup V_- \cup V_*$. Suppose that every node in $V_*$ is connected to at least one node in either $V_+$ or $V_-$. Given a node $i \subset V$ let $g(i)$ be the probability that a random walker starting at $i$ reaches a node in $V_+$ before reaching one in $V_-$. If $i \in V_+$, then $g(i)=1$ and if $i \in V_-$, then $g(i)=0$. Find $g(i)$ for $i \in V_*$.
 	\\\\
-	
+	\textbf{Solution:}
 	There are two scenarios in which the random walker will reach a node in $V_+$ before one in $V_-$: Moving from $V_*$ to $V_+$ immediately, or moving from $V_*$ to $V_*$ repeatedly until moving to $V_+$. We essentially view leaving $V_*$ as an absorbing barrier, and want the probability that we end in $V_+$, which is the sum of all probabilities that will end in that scenario:
 	\[
 	\sum_{j \in V_+}M_{ij} + \sum_{j \in V_*}\sum_{k \in V_+}M_{ij}M_{jk} + \sum_{j \in V_*}\sum_{k \in V_*}\sum_{l \in V_+}M_{ij}M_{jk}M_{kl} + \dots
@@ -32,9 +32,40 @@
 	\[
 	g(i) = \Psi_i^T\left( I - M_* \right)^{-1}MV_+.
 	\]
-	Note that for graphs with large $|V|$, the inverse operation can be quite expensive. Thus $g(i)$ should be approximated either via pseudo-inverse operations or monte carlo simulations.
+	Note that for graphs with large $|V|$, the inverse operation can be quite expensive. Thus $g(i)$ should be approximated either via pseudo-inverse operations or monte carlo simulations. See the attached notebook \textsf{ps2.ipynb} for justification of this closed-form expression for $g(i)$.
 	\\\\
-	\section{Problem 2}
+	\section{Problem 2.2}
+	For a graph $G$ let $h(G)$ denote its Cheeger constant and $\lambda_2(\mathcal{L}_G)$ the second-smallest eigenvalue of its normalized graph Laplacian ($\mathcal{L}_G = D - W$). The Cheeger inequality guarantees that 
+	\[
+	\frac{1}{2}\lambda_2(\mathcal{L}_G) \le h(G) \le \sqrt{2\lambda_2(\mathcal{L}_G)}
+	\]
+	This excercise shows that this inequality is tight (at least up to constants).
+	
+	1. Construct a family of graphs $\mathcal{G}$ for which $\lambda_2(\mathcal{L}_G) \rightarrow 0$ and for which there exists a constant $C>0$ for which 
+	\[
+	\forall G \in \mathcal{G}, h(G) \le C\lambda_2(\mathcal{L}_G)
+	\]
+	\\\\
+	
+	2. Construct a family of graphs $\mathcal{G}$ for which $\lambda_2(\mathcal{L}_G) \rightarrow 0$ and for which there exists a constant $c>0$ for which 
+	\[
+	\forall G \in \mathcal{G}, h(G) \ge c\sqrt{\lambda_2(\mathcal{L}_G)}
+	\]
+	\\\\
+	
+	\section{Problem  2.3}
+	Given a graph $G$ show that the dimension of the nullspace of $\mathcal{L}_G$ corresponds to the number of connected components of $G$.
+	\\\\
+	
+	\section{Problem 2.4}
+	Given a connected unweighted graph $G = (V,E)$, its diameter is equal to 
+	\[
+	\text{diam}(G) = \max_{u,v\in V} \min_{path p, u\rightarrow v} \text{len}(p)
+	\]
+	Show that 
+	\[
+	\text{diam}(G) \ge \frac{1}{\text{vol}(G)\lambda_2(\mathcal{L}_G)}
+	\]
 	
 	
 \end{document}
