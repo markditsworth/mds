@@ -8,3 +8,5 @@
 - Graph Embeddings
 - Random Matrix Theory
 - Semi-supervised Learning
+- k-Means Clustering
+- Spectral Clustering
