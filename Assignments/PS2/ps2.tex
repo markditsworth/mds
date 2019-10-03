@@ -37,26 +37,43 @@
 	\section{Problem 2.2}
 	For a graph $G$ let $h(G)$ denote its Cheeger constant and $\lambda_2(\mathcal{L}_G)$ the second-smallest eigenvalue of its normalized graph Laplacian ($\mathcal{L}_G = D - W$). The Cheeger inequality guarantees that 
 	\[
-	\frac{1}{2}\lambda_2(\mathcal{L}_G) \le h(G) \le \sqrt{2\lambda_2(\mathcal{L}_G)}
+	\frac{1}{2}\lambda_2(\mathcal{L}_G) \le h_G \le \sqrt{2\lambda_2(\mathcal{L}_G)}
 	\]
 	This excercise shows that this inequality is tight (at least up to constants).
 	
 	1. Construct a family of graphs $\mathcal{G}$ for which $\lambda_2(\mathcal{L}_G) \rightarrow 0$ and for which there exists a constant $C>0$ for which 
 	\[
-	\forall G \in \mathcal{G}, h(G) \le C\lambda_2(\mathcal{L}_G)
+	\forall G \in \mathcal{G}, h_G \le C\lambda_2(\mathcal{L}_G)
 	\]
 	\\\\
 	
 	2. Construct a family of graphs $\mathcal{G}$ for which $\lambda_2(\mathcal{L}_G) \rightarrow 0$ and for which there exists a constant $c>0$ for which 
 	\[
-	\forall G \in \mathcal{G}, h(G) \ge c\sqrt{\lambda_2(\mathcal{L}_G)}
+	\forall G \in \mathcal{G}, h_G \ge c\sqrt{\lambda_2(\mathcal{L}_G)}
 	\]
 	\\\\
 	
 	\section{Problem  2.3}
 	Given a graph $G$ show that the dimension of the nullspace of $\mathcal{L}_G$ corresponds to the number of connected components of $G$.
 	\\\\
-	
+	\textbf{Solution:} The nullspace of $\mathcal{L}_G$ is the set of linearly independent vectors $\mathcal{X}$ such that $\forall \mathbf{x} \in \mathcal{X}$, $\mathcal{L}_G\mathbf{x} = \mathbf{0}$.
+	By expanding $\mathcal{L}_G$ we can see that both $D$ and $W$ transform each $\mathbf{x}$ to equal vectors.
+	\[
+	\mathcal{L}_G \mathbf{x} = (D - W)\mathbf{x} = D\mathbf{x} - W\mathbf{x} = \mathbf{0}
+	\]
+	\[
+	D\mathbf{x} = W\mathbf{x}
+	\]
+	Consider that graph $G = (V,E,W),~(|V|=n)$ has $k$ connected components. Let $\mathbf{x}^i$ be a vector where
+	\[
+	x^i_j = 
+	\begin{cases}
+		1 & j \in \text{ component } i\\
+		0 & \text{otherwise} 
+	\end{cases}
+	\]
+	Clearly, without loss of generality, $D\mathbf{x}^i$ is equal to a vector containing the degree of each node in $G$ that is in component $i$. $W\mathbf{x}^i$ is clearly the same since for each node, it will sum all weights of edges that connect to nodes in component $i$. Thus, there will be $k$ linearly independent vectors that are transformed to $\mathbf{0}$ by $\mathcal{L}_G$. All other vectors that do this will be linear combinations of $\mathcal{X} = \{\mathbf{x}^1,\dots ,\mathbf{x}^k\}$. Therefor, the cardinality of the nullspace of $\mathcal{L}_G$ is equal to the number of conneted components in graph $G$.
+	\\\\
 	\section{Problem 2.4}
 	Given a connected unweighted graph $G = (V,E)$, its diameter is equal to 
 	\[
@@ -65,6 +82,44 @@
 	Show that 
 	\[
 	\text{diam}(G) \ge \frac{1}{\text{vol}(G)\lambda_2(\mathcal{L}_G)}
+	\]
+	\\\\
+	\section{Problem 2.5}
+	Prove the Courant Fisher Theorem: Given a symmetric matrix $A\in \mathbb{R}^{n\times n}$ with eigenvalues $\lambda_1 \le \dots \lambda_n$, for $k \le n$,
+	\[
+	\lambda_k(A) = \min_{U:\text{dim}(U)=k} \left[ \max_{x\in U} \frac{x^TAx}{x^Tx} \right].
+	\]
+	\\
+	Also show that
+	\[
+	\lambda_2(A) = \max_{y\in\mathbb{R}^n} \left[ \min_{x\in\mathbb{R}^n:x\perp y} \frac{x^TAx}{x^Tx} \right]
+	\]
+	\\\\
+	\section{Problem 2.6}
+	Given a set of points $x_1,\dots,x_n \in \mathbb{R}^p$ and a partition of them in $k$ clusters $S_1,\dots,S_k$ reca the k-means objective
+	\[
+	\min_{S_1,\dots,S_k}\min_{\mu_1,\dots,\mu_k}\sum_{l=1}^{k}\sum_{i\in S_l}\| x_i - \mu_l \|^2.
+	\]
+	Show that this is equivalent to 
+	\[
+	\min_{S_1,\dots,S_k}\sum_{l=1}^{k}\frac{1}{S_l}\sum_{i,j\in S_l}\| x_i - x_j \|^2.
+	\]
+	\\
+	\textbf{Solution:}
+	\[
+	\min_{S_1,\dots,S_k}\min_{\mu_1,\dots,\mu_k}\sum_{l=1}^{k}\sum_{i\in S_l}\| x_i - \mu_l \|^2 =
+	\]
+	\[
+	\min_{S_1,\dots,S_k}\sum_{l=1}^{k}\sum_{i\in S_l}\|x_i - \frac{1}{|S_l|}\sum_{j\in S_l}x_j\|^2 =
+	\]
+	\[
+	\min_{S_1,\dots,S_k}\sum_{l=1}^{k}\frac{1}{|S_l|}\sum_{i\in S_l}\| |S_l|x_i - \sum_{j\in S_l}x_j\|^2 =
+	\]
+	\[
+	\min_{S_1,\dots,S_k}\sum_{l=1}^{k}\frac{1}{|S_l|}\sum_{i\in S_l}\sum_{j\in S_l}\| x_i - x_j\|^2 =
+	\]
+	\[
+	\min_{S_1,\dots,S_k}\sum_{l=1}^{k}\frac{1}{|S_l|}\sum_{i,j\in S_l}\| x_i - x_j\|^2.
 	\]
 	
 	
